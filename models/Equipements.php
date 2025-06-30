@@ -36,6 +36,14 @@ class Equipements {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    // Get all equipment by local_id
+    public function getByLocal($local_id) {
+        $stmt = $this->conn->prepare("SELECT * FROM $this->table WHERE local_id = ?");
+        $stmt->bind_param("i", $local_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     // Update equipment
     public function update($id, $data) {
         // Prepare the SQL statement
